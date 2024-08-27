@@ -25,6 +25,8 @@ BigInt subtract(BigInt a, BigInt b);
 
 int isNegativeNumber(BigInt a);
 
+int isNumber(BigInt a);
+
 void reverse(BigInt &a);
 
 void swap(BigInt *a, BigInt *b);
@@ -34,27 +36,34 @@ void updateSpace(BigInt &a, int &check);
 int main()
 {
     BigInt a = read();
-    // display(a);
+    display(a);
     BigInt b = read();
-    // display(b);
+    display(b);
     BigInt ad = initAdd(a, b);
     BigInt sub = initSubtract(a, b);
-    // printf("----------------------------------\n");
-    // printf("Sum a + b: %s\n", ad.numbers);
-    // printf("Subtract a - b: %s\n", sub.numbers);
-    printf("%s\n", ad.numbers);
-    printf("%s\n", sub.numbers);
+    printf("-----------------------------------------\n");
+    printf("                  Result                 \n");
+    printf("-----------------------------------------\n");
+    printf("Sum a + b: %s\n", ad.numbers);
+    printf("Subtract a - b: %s\n", sub.numbers);
+    printf("-----------------------------------------");
+    // printf("%s\n", ad.numbers);
+    // printf("%s\n", sub.numbers);
 }
 
 BigInt read()
 {
-    char numberArray[MAX_DIGITS]; // Array store number when input
-    // printf("Enter new numbers: ");
-    scanf("%s", numberArray);
+    int checkOutput = 1;
     BigInt newBigNumber;
+    do {
+    char numberArray[MAX_DIGITS]; // Array store number when input
+    printf("Enter new numbers: ");
+    scanf("%s", numberArray);
     newBigNumber.length = strlen(numberArray);
     newBigNumber.numbers = (char *)malloc(strlen(numberArray) * sizeof(char));
-    strcpy(newBigNumber.numbe rs, numberArray);
+    strcpy(newBigNumber.numbers, numberArray);
+    checkOutput = isNumber(newBigNumber);
+    } while (!checkOutput);
     return newBigNumber;
 }
 
@@ -199,9 +208,9 @@ BigInt subtract(BigInt a, BigInt b)
         int aDigit = i > 0 ? a.numbers[i] - 48 : 0;
         int bDigit = j > 0 ? b.numbers[j] - 48 : 0;
         int subOfNumber = aDigit - bDigit - borrow;
-        if (aDigit < bDigit)
+        if (subOfNumber < 0)
         {
-            newNumber.numbers[idxNewNumber] = subOfNumber + 10 + 48;
+            newNumber.numbers[idxNewNumber] = subOfNumber + 10 + 48; //48 is different between ASCII and natural number
             borrow = 1;
         }
         else
@@ -265,7 +274,7 @@ void updateSpace(BigInt &a, int &check)
         a.numbers[0] = ' ';
     }
     else
-    { //add space
+    { //add space at a.numbers[0]
         for (int i = a.length + 1; i >= 0; i--)
             {
                 a.numbers[i] = a.numbers[i - 1];
@@ -274,4 +283,15 @@ void updateSpace(BigInt &a, int &check)
         a.numbers[a.length + 2] = '\0';
         a.length++;
     }
+}
+
+int isNumber (BigInt a){
+    if ((a.numbers[0]!= ' ' ) && (a.numbers[0]!= '-' ) && (a.numbers[0] < '0') && (a.numbers[0] > '9')){
+        return 0;
+    }
+    for(int i = 1; i < a.length; i++){
+        if ((a.numbers[i]< '0') || (a.numbers[i]> '9'))
+            return 0;
+    }
+    return 1;
 }
