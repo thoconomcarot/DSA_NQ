@@ -5,28 +5,7 @@
 int main (){
     List L;
     makeNull(&L); 
-
-    int n;
-    printf ("Enter the number of elements in list: ");
-    scanf ("%d", &n);
-
-    int list[n];
-    printf ("Enter elements: \n");
-    for (int i = 0; i <n; i++){
-        printf ("\t Element %d: ", i+1);
-        scanf ("%d", &list[i]);
-    }
-    printf ("\n");
-
-    printf ("Print out the list: \n");
-    print(L);
-
-    //sap xep ds
-    sort(&L);
-
-    printf ("Print out the list after sort: \n");
-    print(L);
-    
+    menu(L);
     return 0;
 }
 
