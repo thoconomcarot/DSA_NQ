@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 typedef int ElementType;
 typedef struct NodeTag{
 	ElementType data;
@@ -22,10 +25,11 @@ ElementType retieve(Position p, List L){
 		count++;
 		p = p->next;
 	}
+	
  }
 
  //Viết hàm firstList
- ElementType first(L){
+ ElementType first(List L){
 	List p = L;
 	return p;
  }
@@ -45,7 +49,7 @@ ElementType retieve(Position p, List L){
  //Viết hàm endList
  ElementType endList(L){
 	List p = L;
-	while(p != '\0'){
+	while(p->next != '\0'){
 		p = p->next;
 	}
 	return p;

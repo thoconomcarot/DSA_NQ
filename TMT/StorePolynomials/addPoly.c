@@ -26,9 +26,8 @@ int main()
     print(sum);
 
     // Tính đạo hàm của đa thức 1
-    derivativePoly = derivative(x);
+    derivativePoly = derivative(sum);
     printf("Derivative of sum: ");
     print(derivativePoly);
 
     return 0;
-}

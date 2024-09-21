@@ -140,7 +140,6 @@ ElementType popAt(Position p, List *L){
 }
 
 
-
 // Thêm x vào vị trí đầu tiên
 int insertFirst(ElementType x, List *L){
     if (fullList(*L)){
