@@ -103,9 +103,8 @@ PNode getPosition (int posi, List L){
 
 //Trả về giá trị ở vị trí p
 int getAt(int posi, List L){
-    int n = len(L);  
-    List temp = L;
-    for(int i = 1; i < n; i++){
+    List temp = L->next;
+    for(int i = 1; i < posi; i++){
         if(temp->next == NULL){
             return -1;
         }
@@ -133,14 +132,15 @@ void insertFirst (ElementType x, List *L){
     (*L)->next = newNode;        //cập nhật lại ds sau khi đã thêm node mới
 }
 
+
 //Xóa vị trí đầu tiên
 ElementType popFirst(List *L){
     if (*L == NULL || (*L)->next == NULL) {
         return -1; // Danh sách rỗng
     }
-    Node temp = *L;
+    Node temp = (*L)->next;
     ElementType data = temp->data;
-    *L = temp->next;
+    (*L)->next = temp->next;
     free(temp);
     return data;
 }
@@ -163,13 +163,22 @@ void insertAt(Position posi, ElementType x, List *L){
 
 //Xóa vị trí bất kỳ
 ElementType popAt(Position posi, List *L){
-    List header = L; //khai báo biến tạm lưu cả ds
-    for(int i = 1; i <posi - 1; i++){  //cho posi = 3
-        header = header ->next; //nếu i = 1 < 2 thì temp dịch sang phần tử tiếp theo
+    if (*L == NULL || posi <= 0) {
+        return -1; // Vị trí không hợp lệ
     }
-    List del = header->next; 
-    header = del->next;
+    List temp = *L; //khai báo biến tạm lưu cả ds
+    for(int i = 1; i <posi - 1; i++){  //cho posi = 3
+        temp = temp ->next; //nếu i = 1 < 2 thì temp dịch sang phần tử tiếp theo
+    }
+    if (temp->next == NULL) {
+        return -1; // Vị trí không tồn tại
+    }
+
+    List del = temp->next; 
+    ElementType data = del->data;
+    temp->next = del->next;
     free(del); //xóa
+    return data;
 }
 
 
@@ -205,18 +214,16 @@ void append(int x, List *L){
 
 //trả về vị trí xuất hiện đầu tiên của x
 Position locate(ElementType x, List L){
-    List temp = L;
-    int count = 0;
-    while(temp->next != NULL){
-        count++;
+    List temp = L->next;
+    int count = 1;
+    while(temp != NULL){
         if(x == temp->data){
-            break;
+            return count;
         }
-        else{
-            temp = temp->next;
-        }
+        temp = temp->next;
+        count++;
     }
-    return count;
+    return -1;
 }
 
 
