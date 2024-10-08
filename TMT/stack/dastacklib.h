@@ -27,24 +27,6 @@ int Fibonacci(int n);
 int C(int k, int n);
 
 
-int main (){
-    int x; 
-    printf("Enter the number: ");
-    scanf("%d", &x);
-
-    printf("\tBinary number of %d is: ", x);
-    convertBinary(x);
-
-    printf ("\tFibonacci number %d: %d\n", x, Fibonacci(x));
-
-    printf("Enter k and n: ");
-    int k, n; scanf ("%d %d", &k, &n);
-
-    printf("\tThe combination of %d of %d is: %d\n", k, n, C(k, n));
-    return 0;
-}
-
-
 void makeNull(Stack *st){
     st->top = -1;
 }
@@ -81,18 +63,18 @@ ElementType pop(Stack *st){
     }
 }
 
-void print(Stack st){
-    if(isEmpty(st)){
-        printf ("Stack is empty!\n");
-    }
-    else{
-        printf("Stack: ");
-        for (int i = 0; i <= st.top; i++){
-            printf ("%d ", st.elements[i]);
-        }
-        printf ("\n");
-    }
-}
+// void print(Stack st){
+//     if(isEmpty(st)){
+//         printf ("Stack is empty!\n");
+//     }
+//     else{
+//         printf("Stack: ");
+//         for (int i = 0; i <= st.top; i++){
+//             printf ("%d ", st.elements[i]);
+//         }
+//         printf ("\n");
+//     }
+// }
 
 void convertBinary(int n){
     Stack st;

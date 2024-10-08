@@ -75,14 +75,14 @@ ElementType pop(Stack *st){
 }
 
 
-void print(Stack st){
-    printf ("Stack: ");
-    while(st->next != NULL){
-        printf ("%d ", st->next->data);
-        st = st->next;
-    }
-    printf ("\n");
-}
+// void print(Stack st){
+//     printf ("Stack: ");
+//     while(st->next != NULL){
+//         printf ("%d ", st->next->data);
+//         st = st->next;
+//     }
+//     printf ("\n");
+// }
 
 
 
