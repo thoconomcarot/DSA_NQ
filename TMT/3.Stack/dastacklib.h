@@ -42,10 +42,10 @@ int isFull(Stack st){
 void push(ElementType x, Stack *st){
     if(isFull(*st)){
         printf ("Stack is full!\n");
-        return;
+        return -1;
     }
     else{
-        st->top = st->top+1;
+        st->top++;
         st->elements[st->top] = x;
     }
 }
@@ -57,9 +57,7 @@ ElementType pop(Stack *st){
         return -1;
     }
     else{
-        x = st->elements[st->top];
-        st->top = st->top-1;
-        return x;
+        st->elements[st->top--];
     }
 }
 

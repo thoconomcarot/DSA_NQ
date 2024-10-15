@@ -55,15 +55,15 @@ ElementType sizeQueue(Queue Q)
 
 // dịch về bên trái
 void shiftLeft(int n, Queue *Q){
-    int size = sizeQueue(*Q);
-    for (int i = 0; i < size; i++){
-        Q->elements[i] = Q->elements[n+i];
+    int i;
+    for (i = 0; i < MaxSize; i++){
+        Q->elements[i-n] = Q->elements[i];
     }
     Q->front = 0;
-    Q->rear -= n;
+    Q->rear = i - n;
 }
 
-
+  
 // thêm phần tử
 void enQueue(ElementType x, Queue *Q){
     if (isFull(*Q)){
