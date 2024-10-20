@@ -6,10 +6,9 @@
     typedef int ElementType;
     
     typedef struct{
-    ElementType Elements[MAXSIZE];
+    ElementType Elements[MaxSize];
     Position size;
 } List;
-// List L;
 
 void makeNull(List *L); //khởi tạo ds rỗng
 int len(List L);
@@ -50,7 +49,7 @@ int empty(List L){
 
 // check danh sách có đầy
 int fullList(List L){
-    return L.size == MAXSIZE; }
+    return L.size == MaxSize; }
 
 
 // trả về vị trí đầu tiên của ds

@@ -8,11 +8,11 @@ typedef struct{
     int top;
 }Stack;
 
-void makeNull(Stack *st);
+void makeNullStack(Stack *st);
 
-int isEmpty(Stack st);
+int isEmptyStack(Stack st);
 
-int isFull(Stack st);
+int isFullStack(Stack st);
 
 void push(ElementType x, Stack *st);
 
@@ -27,22 +27,22 @@ int Fibonacci(int n);
 int C(int k, int n);
 
 
-void makeNull(Stack *st){
+void makeNullStack(Stack *st){
     st->top = -1;
 }
 
-int isEmpty(Stack st){
+int isEmptyStack(Stack st){
     return st.top == -1;
 }
 
-int isFull(Stack st){
+int isFullStack(Stack st){
     return st.top == Max_length-1;
 }
 
 void push(ElementType x, Stack *st){
-    if(isFull(*st)){
+    if(isFullStack(*st)){
         printf ("Stack is full!\n");
-        return -1;
+        return;
     }
     else{
         st->top++;
@@ -52,21 +52,20 @@ void push(ElementType x, Stack *st){
 
 ElementType pop(Stack *st){
     int x;
-    if(isEmpty(*st)){
+    if(isEmptyStack(*st)){
         printf ("Stack is empty!\n");
         return -1;
     }
     else{
-        st->elements[st->top--];
+        return st->elements[st->top--];
     }
 }
 
 void printStack(Stack st){
-    if(isEmpty(st)){
+    if(isEmptyStack(st)){
         printf ("Stack is empty!\n");
     }
     else{
-        printf("Stack: ");
         for (int i = 0; i <= st.top; i++){
             printf ("%d ", st.elements[i]);
         }
@@ -76,7 +75,7 @@ void printStack(Stack st){
 
 void convertBinary(int n){
     Stack st;
-    makeNull(&st);
+    makeNullStack(&st);
     if(n == 0){
         push(0, &st);
     }
@@ -86,7 +85,7 @@ void convertBinary(int n){
             n /= 2;
         }
     }
-    while(!isEmpty(st)){ //lặp đến khi stack rỗng
+    while(!isEmptyStack(st)){ //lặp đến khi stack rỗng
         printf ("%d", pop(&st));
     }
     printf ("\n");

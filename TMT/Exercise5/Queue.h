@@ -7,14 +7,14 @@ typedef int ElementType;
 typedef struct
 {
     ElementType elements[MaxSize];
-    int front, rear;
+    int Front, Rear;
 } Queue;
 
-void makeNull(Queue *Q);
+void makeNullQueue(Queue *Q);
 
-ElementType isEmpty(Queue Q);
+int isEmptyQueue(Queue Q);
 
-ElementType isFull(Queue Q);
+ElementType isFullQueue(Queue Q);
 
 ElementType sizeQueue(Queue Q);
 
@@ -28,69 +28,72 @@ void printQueue(Queue Q);
 
 
 // khởi tạo hàng đợi
-void makeNull(Queue *Q)
+void makeNullQueue(Queue *Q)
 {
-    Q->front = 0;
-    Q->rear = 0;
+    Q->Front = 0;
+    Q->Rear = 0;
 }
 
 // Check rỗng
-ElementType isEmpty(Queue Q)
+int isEmptyQueue(Queue Q)
 {
-    return Q.front == Q.rear;
+    return Q.Front == Q.Rear;
 }
 
 // check đầy
-ElementType isFull(Queue Q)
+ElementType isFullQueue(Queue Q)
 {
-    return (Q.rear - Q.front == MaxSize);
+    return (Q.Rear - Q.Front == MaxSize);
 }
 
 // đếm phần tử
 ElementType sizeQueue(Queue Q)
 {
-    return Q.rear - Q.front;
+    return Q.Rear - Q.Front;
 }
 
 
 // dịch về bên trái
 void shiftLeft(int n, Queue *Q){
+    if (n <= 0){
+        return;
+    }
     int i;
-    for (i = 0; i < MaxSize; i++){
+    for (i = Q->Front; i < Q->Rear; i++){
         Q->elements[i-n] = Q->elements[i];
     }
-    Q->front = 0;
-    Q->rear = i - n;
+    Q->Rear = i - n;
+    Q->Front = 0;
 }
 
   
 // thêm phần tử
 void enQueue(ElementType x, Queue *Q){
-    if (isFull(*Q)){
+    if (isFullQueue(*Q)){
         printf("Queue is full!!");
         return;
     }
     else{
-        if (Q->front != 0 && Q->rear == MaxSize){
-            shiftLeft(Q->front, Q);
+        if (Q->Front != 0 && Q->Rear == MaxSize){
+            shiftLeft(Q->Front, Q);
         }
-        Q->elements[Q->rear++] = x;
+        Q->elements[Q->Rear++] = x;
     }
 }
 
 // xóa phần tử
 ElementType deQueue(Queue *Q){
-    if (isEmpty(*Q)){
+    if (isEmptyQueue(*Q)){
         printf("Queue is empty!!\n");
         return -1;
     }
     else{
-        ElementType x = Q->elements[Q->front]; // lấy ptu đầu tiên trong queue
-        if (Q->front == Q->rear - 1){
-            makeNull(Q);
+        ElementType x = Q->elements[Q->Front]; // lấy ptu đầu tiên trong queue
+        if (Q->Front == Q->Rear){
+            makeNullQueue(Q);
         }
         else{
-            Q->front++;
+            Q->Front++;
         }
         return x;
     }
@@ -98,14 +101,14 @@ ElementType deQueue(Queue *Q){
 
 // in ra hàng đợi
 void printQueue(Queue Q){
-    if (isEmpty(Q)){
-        printf("###ERROR###");
+    if (isEmptyQueue(Q)){
+        printf("Queue is empty!\n");
         return;
     }
     else{
-        int size = sizeQueue(Q);
-        for (int i = 0; i < size; i++){
-            printf("%d ", Q.elements[Q.front+i]);
+        //int size = sizeQueue(Q);
+        for (int i = Q.Front; i < Q.Rear; i++){
+            printf("%d ", Q.elements[i]);
         }
         printf("\n");
     }
