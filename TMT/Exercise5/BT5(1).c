@@ -10,14 +10,14 @@ int main (){
     int n, x, res;
 
 //Nhập phần tử vào stack
-    printf ("Nhap sl phan tu: ");
+    printf ("Enter the number of elements: ");
     scanf ("%d", &n);
-    printf ("Nhap cac phan tu: %d");
+    printf ("Enter elements: ");
     for (int i = 1; i <= n; i++){
         scanf ("%d", &x);
         push(x, &S);
     }
-    printf ("Ngăn xếp chưa sắp: ");
+    printf ("Stack before reversed: ");
     printStack(S);
 
 //Đảo ngược ngăn xếp sd hàng đợi
@@ -35,7 +35,7 @@ int main (){
 
 
 //In ra
-    printf ("Ngăn xếp sau khi đảo: ");
+    printf ("Stack after reversed: ");
     printStack(S);
 
 return 0;
