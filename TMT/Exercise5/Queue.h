@@ -84,7 +84,7 @@ void enQueue(ElementType x, Queue *Q){
 // xóa phần tử
 ElementType deQueue(Queue *Q){
     if (isEmptyQueue(*Q)){
-        printf("Queue is empty!!\n");
+        printf("\tQueue is empty!!\n");
         return -1;
     }
     else{
@@ -102,7 +102,7 @@ ElementType deQueue(Queue *Q){
 // in ra hàng đợi
 void printQueue(Queue Q){
     if (isEmptyQueue(Q)){
-        printf("Queue is empty!\n");
+        printf("\tQueue is empty!\n");
         return;
     }
     else{

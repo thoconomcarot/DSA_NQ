@@ -1,70 +1,105 @@
-//Using abstract operations on lists, write a function that sorts the list in ascending order.
-#include <stdio.h>
-//Khai bao
-#define MAXSIZE 1001
-typedef int ElementType;
-typedef int Position;
-typedef struct{
-	ElementType elements[MAXSIZE];
-	int size;
-}List;
+//#include "alistlib.h"
+#include "plistlib.h"
 
-//Vi tri dau tien 
-Position first(List L){
-	return 1;
-}
-//chay tiep den khi gap vi tri cuoi cung
-Position next(Position p, List L){
-	if(p < L.size-1){
-		return p + 1;
-	}
-	return L.size;
-}
-// tra ve vi tri cuoi cung
-Position endList(List L){
-	return L.size + 1;
-}
-//hàm tra ve chinh no hoac bao loi neu vi tri p hong co trong ds
-ElementType retrieve (Position p, List L){
-	if (p < L.size){
-		return L.elements[p];
-	}
-	return -1;
-}
-//ham doi vi tri neu vi tri chua duoc sap xep tang dan
-//truyen con tro vi muon sua doi gia tri goc 
-void swap (Position p, Position q, List *L){
-//	if (p < L-> elements && q < L.elements){
-		ElementType temp = L->elements[p];
-		L->elements[p] = L->elements[q];
-		L->elements[q] = temp; 
+void readList (int a[], int n, List *L){
+    while(n > 0){
+        insertFirst(a[n-1], L);
+        n--;
+    }
 }
 
-//Viet ham sap xep tang dan
-void Sort(List L){
-	Position p,q;
-	p = first(L);
-	while(p != endList(L)){
-		q = next(p, L);
-		while(q != endList(L)){
-			if(retrieve(p,L) > retrieve (q,L))
-				swap (p,q, &L);
-			q = next(q,L);
-		}
-		p = next(p, L);
-	}
+void printList(List L){
+    if (empty(L)){
+        printf("List is empty!\n");
+        return;
+    }
+
+    printf ("\tList of elements: ");
+    for (int i = 1; i <= len(L); i++){
+        printf("%d ", getAt(i, L));
+    }
+    printf ("\n");
 }
+
+
+void bubbleSort (List *L){
+    int n = len(*L);
+    for (int i = 1; i < n-1; i++){
+        for (int j = 1; j <= n-i; j++){
+            if(getAt(j, *L) > getAt(j+1,(*L))){
+                int temp = getAt(j+1,(*L));
+                setAt(j+1, getAt(j, (*L)), L);
+                setAt(j, temp, L);
+            }
+        }
+    }
+}
+
+void insertionSort (List *L){
+    int n = len(*L);
+    for (int i = 1; i <= n; i++){
+        int temp = getAt(i, (*L));
+        int j = i;
+        while(j > 1 && getAt(j-1, (*L)) > temp){
+            setAt(j, getAt(j-1, (*L)), L);
+            j--;
+        }
+        setAt(j, temp, L);
+    }
+}
+
+void selectionSort(List *L){
+    int n = len(*L);
+    for (int i =1; i < n; i++){
+        int min = i;
+        for (int j = i +1; j <= n; j++){
+            if (getAt(min,(*L)) > getAt(j,(*L))){
+                min = j;
+            }
+        }
+        int temp = getAt(i, (*L));
+        setAt(i, getAt(min, (*L)), L);
+        setAt(min, temp, L);
+    }
+}
+
 
 int main (){
-	List a;
-	
-	printf ("Enter the number of elements in the list: ");
-	scanf ("%d", &a.size);
-	
-	if(a.size > MAXSIZE){
-		printf ("ERROR");
-		return 1;
-	}
-	
-	printf ("Enter elements: ");
+    List L;
+    makeNull(&L);
+
+    int a[] = {4,7,2,1,3,8,9,0,6,5}; //0 1 2 3 4 5 6 7 8 9
+    int b[] = {7,4,2,1,5};
+    int n = sizeof(a)/sizeof(a[0]);
+    int m = sizeof(b)/sizeof(b[0]);
+
+    // readList(a,n, &L);
+    // readList(b,m, &L);
+    // printf ("List: ");
+    // printList(L);
+
+    printf("~~~~~~~~~~~~~~~~\n");
+    makeNull(&L);
+    printf("Test a\n");
+    readList(a, n, &L);
+    printList(L);
+    printf ("After sorting\n");
+    bubbleSort(&L);
+    //insertionSort(&L);
+    //selectionSort(&L);
+    printList(L);
+    
+    printf("~~~~~~~~~~~~~~~~\n");
+    makeNull(&L);
+    printf("Test b\n");
+    readList(b, m, &L);
+    printList(L);
+    printf ("After sorting\n");
+    bubbleSort(&L);
+    //insertionSort(&L);
+    //selectionSort(&L);
+    printList(L);
+    
+   
+    return 0;
 }
