@@ -63,6 +63,24 @@ void selectionSort(List *L){
     }
 }
 
+void shellSort(List *L){
+    int length = len(*L);
+    for(int gap = length / 2; gap >= 1; gap /= 2){
+        for(int i = gap; i <= length; i++){
+            for(int j = i-gap ; j >= 0; j -= gap){
+                if(getAt(j, *L) > getAt(j + gap, *L)){
+                    int temp = getAt(j+gap, (*L));
+                    setAt(j+gap, getAt(j, (*L)), L);
+                    setAt(j, temp, L);
+
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+}
+
 
 int main (){
     List L;
@@ -84,10 +102,12 @@ int main (){
     readList(a, n, &L);
     printList(L);
     printf ("After sorting\n");
-    bubbleSort(&L);
+    //bubbleSort(&L);
     //insertionSort(&L);
     //selectionSort(&L);
+    shellSort(&L);
     printList(L);
+    
     
     printf("~~~~~~~~~~~~~~~~\n");
     makeNull(&L);
@@ -95,9 +115,10 @@ int main (){
     readList(b, m, &L);
     printList(L);
     printf ("After sorting\n");
-    bubbleSort(&L);
+    //bubbleSort(&L);
     //insertionSort(&L);
     //selectionSort(&L);
+    shellSort(&L);
     printList(L);
     
    
